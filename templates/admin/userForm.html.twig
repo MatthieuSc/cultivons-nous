@@ -1,0 +1,48 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block body %}
+
+    <div class="form">
+
+        <h2>Formulaire utilisateurs</h2>
+
+        {{ form_start(userForm) }}
+
+        <div class="pseudo-form">
+            {{ form_label(userForm.pseudo)}}
+            <div class="input">
+                {{ form_widget(userForm.pseudo)}}
+            </div>       
+        </div>
+        <div class="email-form">
+            {{ form_label(userForm.email)}}
+            <div class="input">
+                {{ form_widget(userForm.email)}}
+            </div>
+        </div>
+
+        <div class="roles-form">
+            {{ form_label(userForm.roles)}}
+            <div class="input">
+                {{ form_widget(userForm.roles)}}
+            </div>
+        </div>
+
+        <div class='buttons'>
+            
+            <div class="back-button">
+                <button class="back"><a href="{{ path('admin_users') }}">Retour</a> </button>
+            </div>
+
+            <div class="validation-button">
+                {{ form_widget(userForm.valider)}}
+            </div>
+
+        </div>
+
+        {{ form_end(userForm) }}
+
+    </div>
+{% endblock %}

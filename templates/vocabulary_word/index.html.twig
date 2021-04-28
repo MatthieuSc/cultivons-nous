@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello VocabularyWordController!{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="container-vocabulary-word">
+            <div class="text-is">
+                <h3>Le mot est :</h3>
+            </div>
+            {% for oneWord in word %}
+                <div class="word-container">
+                    <h2> {{ oneWord.word }} </h2>
+                </div>
+                <div class="guess-text">
+                    <h3>Essaie de deviner sa signification !</h3>
+                </div>
+                <div class="answer-button">
+                    <span class="reveal-button">Tu donnes ta langue au chat ? Clic pour voir la définition</span>
+                </div>
+                <div class="answer">
+                    <p> {{ oneWord.definition }}</p>
+                </div>
+
+                {% if is_granted('ROLE_USER')%}
+                <div class="df-button">
+
+                    <div class="button-other-one">
+                        <button class="btn-other-one" type="button"><a href="#">Tu l'a retenu ? Ajoute le dans tes fav' !</a></button>
+                    </div>
+                    
+                    <div class="button-other-one">
+                        <button class="btn-other-one" type="button"><a href=" {{ path('random_vocabulary_word') }}">Tu connais ? Découvres-en un autre !</a></button>
+                    </div>
+                    
+                </div>
+                {% else %}
+                <div class="button-other-one">
+                    <button class="btn-other-one" type="button"><a href=" {{ path('random_vocabulary_word') }}">Tu connais ? Découvres-en un autre !</a></button>
+                </div>
+                {% endif %}
+
+
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

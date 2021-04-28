@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Info impro'{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="container-improbable-information">
+        <div class="text-is">
+            <h3>L'infos impro' du jour : </h3>
+        </div>
+        {% for oneInfo in information %}
+            <div class="information">
+                <p> {{ oneInfo.description }}</p>
+            </div>
+            <div class="button-other-one">
+                <button class="btn-other-one" type="button"><a href=" {{ path('random_improbable_information') }}">Tu connais ? Découvres-en une autre !</a></button>
+            </div>
+        {% endfor %}
+    </div>
+    </div>
+</div>
+{% endblock %}

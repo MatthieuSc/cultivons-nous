@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+    {% block body %}
+
+    <div class="register-container">
+        {% for flashError in app.flashes('verify_email_error') %}
+            <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+        {% endfor %}
+
+        <h1>Inscrivez-vous</h1>
+
+        {{ form_start(registrationForm) }}
+            
+        <div class="big-container">
+            <div class="pseudo-register">
+                {{ form_label(registrationForm.pseudo) }}
+                <div class="input">
+                    {{ form_widget(registrationForm.pseudo) }}
+                </div>
+            </div>
+            <div class="email-register">
+                {{ form_label(registrationForm.email) }}
+                <div class="input">
+                    {{ form_widget(registrationForm.email) }}
+                </div>
+            </div>
+            <div class="password-register">
+                {{ form_label(registrationForm.plainPassword) }}
+                <div class="input">
+                    {{ form_widget(registrationForm.plainPassword) }}
+                </div>
+            </div>
+            <div class="agree-terms">
+                {{ form_row(registrationForm.agreeTerms) }}
+            </div>
+            <div class="inscription-button">
+                {{ form_row(registrationForm.inscription) }}
+            </div>
+
+            {{ form_end(registrationForm) }}
+        </div>
+        <div class="already-account">
+            <p>Vous avez déjà un compte ? <a href="{{ path('app_login') }}" class="already-account-connection">Connectez-vous !</a> </p>
+        </div>
+    </div>
+{% endblock %}

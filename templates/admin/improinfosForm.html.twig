@@ -1,0 +1,33 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Informations Improbables{% endblock %}
+
+{% block body %}
+
+    <div class="form">
+
+        <h2>Formulaire des infos impro'</h2>
+
+        {{ form_start(improInfoForm) }}
+
+        <div class="create-description">
+            {{ form_label(improInfoForm.description)}}
+            <div class="input">
+                {{ form_widget(improInfoForm.description)}}
+            </div>
+            </div>
+
+            <div class="buttons">
+                <div class="back-button">
+                    <button class="back"><a href="{{ path('admin_impro_list') }}">Retour</a> </button>
+                </div>
+
+                <div class="validation-button">
+                    {{ form_widget(improInfoForm.Valider) }}
+                </div>
+            </div>
+
+        {{ form_end(improInfoForm) }}
+
+    </div>
+{% endblock %}

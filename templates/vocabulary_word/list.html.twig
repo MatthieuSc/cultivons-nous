@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des mots de vocabulaire{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        
+        <div class="title">
+            <h1>Liste des mots et leur definition</h1>
+            <h5>(Cliquez sur le mot pour afficher sa définition)</h5>
+        </div>
+        {% for word in words %}
+        <div class="container-vocabulary-list">
+            <div class="word-list-container">
+                <h2> {{ word.word }} </h2>
+            </div>
+            <div class="definition-container">
+                <p class="definition-content">{{ word.definition }}</p>
+            </div>
+        </div>
+        {% endfor %}
+        {{ knp_pagination_render(words) }}
+    </div>
+{% endblock %}

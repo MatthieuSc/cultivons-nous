@@ -1,0 +1,40 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <div class="general-container">
+        <div class="title">
+            <h2>Liste des mots de vocabulaire</h2>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Numéro</th>
+                    <th>Mot</th>
+                    <th>Définition</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for word in allWords %}
+                    <tr>
+                        <td> {{ loop.index }} </td>
+                        <td> {{ word.word}} </td>
+                        <td class="definition">{{ word.definition | u.truncate(150, '...') }}</td>
+                        <td>
+                            <a href=" {{ path('vocab_word_update', {'id': word.id}) }}"><i class="fas fa-pen" style="color:blue;"></i></a> |
+                            <a href=" {{ path('vocab_word_delete', {'id': word.id}) }}"><i class="fas fa-trash" style="color:red;"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="add">
+            <button class="add_button"><a class="add-link" href=" {{ path('vocab_word_create') }}">Ajouter un mot de vacabulaire</a></button>
+        </div>
+
+            {{ knp_pagination_render(allWords) }}
+    </div>
+{% endblock %}

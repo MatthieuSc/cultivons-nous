@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification profil{% endblock %}
+
+{% block body %}
+
+<div class="container-edit-profile">
+
+    <div class="title-edit-informations">
+        <h2>Modifier mes informations</h2>
+    </div>
+    {{ form_start(editProfileForm) }}
+
+    
+    
+        <div class="edit-pseudo">
+            {{form_label(editProfileForm.pseudo)}}
+            <div class="input">
+                {{form_widget(editProfileForm.pseudo)}}
+            </div>
+        </div>
+        <div class="edit-email">
+            {{form_label(editProfileForm.email)}}
+            <div class="input">
+                {{form_widget(editProfileForm.email)}}
+            </div>
+        </div>
+
+        <div class="validation-button">
+            {{form_label(editProfileForm.valider)}}
+        </div>
+    
+
+    {{ form_end(editProfileForm) }}
+</div>
+
+{% endblock %}

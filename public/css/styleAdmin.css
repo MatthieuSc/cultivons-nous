@@ -1,0 +1,198 @@
+/* REGLAGES GENERAUX */
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: #EDEDED;
+}
+
+/* HEADER & MENU */
+
+.container-header {
+    height: 15vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(238, 200, 200);
+    text-transform: uppercase;
+}
+
+.display-flex {
+    display: flex;
+}
+
+.menu-left {
+    display: flex;
+    flex-direction: column;  
+    line-height: 35px;
+    height: 150vh;
+    width: 150px;
+    background-color: rgb(238, 200, 200);
+    align-items: center;
+}
+
+.menu-left a {
+    text-decoration: none;
+    color: #000;
+    font-weight: 700;
+}
+
+.menu-left a {
+    margin: 10px 0;
+}
+
+/* CONTENT HOME ADMIN */
+
+.container-admin-home{
+    margin: 30px auto;
+    font-size: 20px;
+ }
+ 
+ .container-admin-home ol li {
+     padding-left: 15px;
+ }
+
+/* ADMIN  WORD VOCABULARY PAGE */
+
+.general-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px auto;
+}
+
+table, td, th {
+    border: 2px solid #fff;
+    border-collapse: collapse;
+    background-color: rgb(32, 31, 31);
+    color: #fff;
+}
+
+th, td {
+    padding: 5px 10px;
+    text-align: center;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    border: 1px solid #000;
+    width: 40%;
+    border-radius: 5px;
+    margin: 30px auto;
+    height: 40px;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: #000;
+    margin:  5px;
+}
+
+.pagination .current {
+    font-size: 22px;
+    color: #A75A00;
+    font-weight: 800;
+}
+
+td.definition {
+    text-align: justify;
+}
+
+/* USERS ADMIN , IMPRO INFOS ADMIN, VACABULARY ADMIN */
+
+h2 {
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+.form {
+    margin: 20px auto;
+    padding: 30px 30px;
+    width: 500px;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid #A75A00;
+}
+
+.pseudo-form, .email-form, .roles-form, .password-form, .validation-button, .create-description, .word-form, .definition-form {
+    margin-right: 10px;
+    margin-top: 15px;
+    display: flex;
+}
+
+.roles-form {
+    display: flex;
+    border: 3px solid rgb(238, 200, 200);
+    padding: 5px 10px;
+}
+
+.input {
+    width: 100%;
+    text-align: right;
+}
+
+#user_pseudo, #user_email, #user_password,#improbable_information_description, #vocabulary_word_word, #vocabulary_word_definition {
+    width: 200px;
+    border: 1px solid rgb(238, 200, 200);
+    border-radius: 5px;
+    height: 30px;
+}
+
+.password-form {
+    margin-bottom: 20px;
+}
+
+label[for=user_password] {
+    width: 150px;
+}
+
+.buttons {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.validation-button, .back-button {
+    justify-content: flex-end;
+}
+
+#user_valider, .back, #improbable_information_Valider, #vocabulary_word_Valider {
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: rgb(238, 200, 200);
+    color: #000;
+    border: none;
+    font-weight: 600;
+}
+
+.back a {
+    text-decoration: none;
+    color: #000;
+}
+
+.add {
+    width: 100%;
+    text-align: end;
+    border: none;
+    margin-top: 30px;
+}
+
+.add_button {
+    border: 1px solid rgb(32, 31, 31);
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+button a.add-link {
+    padding: 10px 15px;
+    color: rgb(32, 31, 31);
+    text-decoration: none;
+}

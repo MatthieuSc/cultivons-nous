@@ -1,0 +1,44 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Mots de vocabulaire{% endblock %}
+
+{% block body %}
+
+    <div class="form">
+
+        <h2>Formulaire mots de vacabulaire</h2>
+
+        {{ form_start(vocabWordForm) }}
+
+        <div class="word-form">
+            {{ form_label(vocabWordForm.word)}}
+            <div class="input">
+                {{ form_widget(vocabWordForm.word)}}
+            </div>       
+        </div>
+
+        
+        <div class="definition-form">
+            {{ form_label(vocabWordForm.definition)}}
+            <div class="input">
+                {{ form_widget(vocabWordForm.definition)}}
+            </div>       
+        </div>
+           
+
+        <div class='buttons'>
+            
+            <div class="back-button">
+                <button class="back"><a href="{{ path('admin_words_list') }}">Retour</a> </button>
+            </div>
+
+            <div class="validation-button">
+                {{ form_widget(vocabWordForm.Valider)}}
+            </div>
+
+        </div>
+
+        {{ form_end(vocabWordForm) }}
+
+    </div>
+{% endblock %}

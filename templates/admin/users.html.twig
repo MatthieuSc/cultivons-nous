@@ -1,0 +1,46 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block body %}
+    <div class="general-container">
+        <div class="title">
+            <h2>Liste des utilisateurs</h2>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Numéro</th>
+                    <th>Pseudo</th>
+                    <th>Email</th>
+                    <th>Rôle</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in allUsers %}
+                    <tr>
+                        <td> {{ loop.index }} </td>
+                        <td> {{ user.pseudo }} </td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            {% for role in user.roles %}
+                                {% if role == "ROLE_SUPER_ADMIN" %}
+                                    Gérant
+                                {% else %}
+                                    Utilisateur
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <a href=" {{ path('user_update', {'id': user.id}) }}"><i class="fas fa-pen" style="color:blue;"></i></a> |
+                            <a href=" {{ path('user_delete', {'id': user.id}) }}"><i class="fas fa-trash" style="color:red;"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+            {{ knp_pagination_render(allUsers) }}
+    </div>
+{% endblock %}

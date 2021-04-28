@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="presentation">
+            <div class="presentation-title">
+                <h2>Qu'est ce que c'est ?</h2>
+            </div>
+            <div class="presentation-content">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, eum eligendi blanditiis fugiat, necessitatibus fugit praesentium ducimus, provident velit quas similique quis sint vitae. Officiis facere dolores aspernatur accusamus, enim provident. Impedit, placeat. Error aperiam totam natus maxime voluptatem ex. Repellat placeat voluptas ab facere ad pariatur natus neque non necessitatibus odio dolor ea, quisquam beatae sint nobis, cum deserunt eum. Natus amet non inventore doloremque placeat ducimus odit ad, laudantium commodi necessitatibus, officia asperiores minima quia nemo, distinctio assumenda numquam dolorum voluptas. Obcaecati ratione error minima consequatur ut voluptas quaerat labore placeat, non tempora, quasi tempore mollitia nostrum at?</p>
+            </div>
+        </div>
+        <div class="blue-button">
+            <button class="btn btn-blue" type="button"><a href="{{ path('random_vocabulary_word') }}">Apprendre un mot de vocabulaire au hasard</a></button>
+        </div>
+        <div class="red-button">
+            <button class="btn btn-red" type="button"><a href="#">Apprendre une actualité au hasard</a></button>
+        </div>
+        <div class="purple-button">
+            <button class="btn btn-purple" type="button"><a href="{{ path('random_improbable_information') }}">Apprendre une info improbable</a></button>
+        </div>
+        <div class="green-button">
+            <button class="btn btn-green" type="button"><a href="#">Apprendre la capitale d'un pays au hasard</a></button>
+        </div>
+    </div>
+
+{% endblock %}

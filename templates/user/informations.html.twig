@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes informations{% endblock %}
+
+{% block body %}
+
+    <div class="title-mes-infos">
+        <h2>Mes informations</h2>
+    </div>
+
+    <div class="informations">
+        <div class="title-pseudo">
+            <span><b>Pseudo :</b>  {{ app.user.pseudo }} </span>
+        </div>
+        <div class="title-email">
+            <span><b>Email :</b> {{ app.user.email }} </span>
+        </div>
+    </div>
+
+    <div class="edit-informations">
+        <button class="edit-button">
+            <a class="edit-info-link" href=" {{ path('edit-profile') }}">Modifier mes informations</a>
+        </button>
+    </div>
+
+    <style>
+        .title-mes-infos {
+            text-align: center;
+        }
+
+        .informations {
+            line-height: 30px;
+            margin: 20px auto;
+        }
+
+        .edit-informations {
+            margin: 0 auto 20px auto;
+        }
+
+        .edit-button {
+            padding: 10px 15px;
+            background-color: #A75A00;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .edit-info-link {
+            text-decoration: none;
+            color: #000;
+            font-weight: 700;
+            font-size: 14px;
+        }
+    </style>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+    <div class="general-container">
+        <div class="title">
+            <h2>Liste des informations improbables</h2>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Numéro</th>
+                    <th>Infos impro'</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for info in allInfos %}
+                    <tr>
+                        <td> {{ loop.index }} </td>
+                        <td>{{ info.description | u.truncate(150, '...') }}</td>
+                        <td>
+                            <a href=" {{ path('impro_info_update', { 'id': info.id }) }}"><i class="fas fa-pen" style="color:blue;"></i></a> |
+                            <a href="{{ path('impro_info_delete', { 'id': info.id }) }}"><i class="fas fa-trash" style="color:red;"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="add">
+            <button class="add_button"><a class="add-link" href=" {{ path('improbable_informations_create') }}">Ajouter une information improbable</a></button>
+        </div>
+
+            {{ knp_pagination_render(allInfos) }}
+    </div>
+{% endblock %}

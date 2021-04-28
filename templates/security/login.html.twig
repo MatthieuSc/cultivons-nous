@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+
+    <div class="login-container">
+        <form method="post">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            {% if app.user %}
+                <div class="mb-3">
+                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                </div>
+            {% endif %}
+
+            <h1 class="">Connectez-vous</h1>
+            <div class="big-container">
+                <div class="login-pseudo">
+                    <label for="inputPseudo">Pseudo</label>
+                    <div class="input">
+                        <input type="text"  value="{{ last_username }}" name="pseudo" id="inputEmail" class="form-control" placeholder="Ex. Armagédon" required autofocus>
+                    </div>
+                </div>
+                <div class="login-password">
+                    <label for="inputPassword">Password</label>
+                    <div class="input">
+                        <input type="password" name="password" id="inputPassword" class="form-control"  placeholder="••••••••" required>
+                    </div>
+                </div>
+                <input type="hidden" name="_csrf_token"
+                    value="{{ csrf_token('authenticate') }}"
+                >
+
+            {#
+                Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                See https://symfony.com/doc/current/security/remember_me.html
+
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" name="_remember_me"> Remember me
+                    </label>
+                </div>
+            #}
+                <div class="connection-button">
+                    <button class="connection" type="submit">
+                        Connexion
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="no-account">
+            <p>Vous n'avez pas encore de compte ? <a href="{{ path('app_register') }}" class="no-account-register">Inscrivez-vous !</a> </p>
+        </div>
+    </div>
+{% endblock %}
