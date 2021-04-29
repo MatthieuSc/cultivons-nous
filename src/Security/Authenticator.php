@@ -68,19 +68,19 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
             throw new InvalidCsrfTokenException();
         }
 
-        $userPseudo = $this->entityManager->getRepository(User::class)->findOneBy(['pseudo' => $credentials['pseudo']]);
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['pseudo' => $credentials['pseudo']]);
 
-        if (!$userPseudo) {
+        if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException("Ce pseudo n'existe pas.");
+            throw new CustomUserMessageAuthenticationException("Pseudo ou mot de passe incorrect");
         }
 
-        return $userPseudo;
+        return $user;
     }
 
-    public function checkCredentials($credentials, UserInterface $userPseudo)
+    public function checkCredentials($credentials, UserInterface $user)
     {
-        return $this->passwordEncoder->isPasswordValid($userPseudo, $credentials['password']);
+        return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
     /**

@@ -528,6 +528,15 @@ header {
 
     /*  REGISTER PAGE & LOGIN PAGE*/
 
+    div .success {
+        border: 1px solid rgb(76, 207, 76);
+        background-color: rgb(76, 207, 76);
+        padding: 15px 40px;
+        text-align: center;
+        width: 500px;
+        margin: 0 auto 20px auto;
+    }
+
     .register-container, .login-container, .container-edit-profile {
         margin: 20px auto;
         text-align: center;
@@ -550,6 +559,10 @@ header {
         border: 1px solid#A75A00;
         border-radius: 5px;
     }
+
+    .login-password label {
+        width: 150px;
+    } 
 
     label[for=registration_form_plainPassword]{
         width: 100%
@@ -626,7 +639,57 @@ header {
         margin-bottom: 20px;
     }
 
+    .title-mes-infos {
+        text-align: center;
+    }
+
+    .informations {
+        line-height: 30px;
+        margin: 20px auto;
+    }
+
+    .edit-informations {
+        margin: 0 auto 20px auto;
+    }
+
+    .edit-button {
+        padding: 10px 15px;
+        background-color: #A75A00;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .edit-info-link {
+        text-decoration: none;
+        color: #000;
+        font-weight: 700;
+        font-size: 14px;
+    }
+
     /* END CODE EDIT PROFILE USER */
+
+    /* HISTORICAL USER PAGE */
+
+    .general-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 30px auto;
+    }
+
+    table, td, th {
+        border: 2px solid #fff;
+        border-collapse: collapse;
+        background-color: rgb(32, 31, 31);
+        color: #fff;
+    }
+    
+    th, td {
+        padding: 5px 10px;
+        text-align: center;
+    }
+
+    /*  END CODE HISTORICAL USER PAGE */
 
 /* END CODE MAIN WEBSITE PAGES */
 

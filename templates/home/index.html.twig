@@ -5,6 +5,10 @@
 {% block body %}
 
     <div class="container">
+        {% for addFlash in app.flashes('message') %}
+            <div class="success">{{ addFlash }}</div>
+        {% endfor %}
+
         <div class="presentation">
             <div class="presentation-title">
                 <h2>Qu'est ce que c'est ?</h2>

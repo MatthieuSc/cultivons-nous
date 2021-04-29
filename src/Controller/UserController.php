@@ -7,9 +7,11 @@ use App\Form\UserType;
 use App\Form\EditProfileType;
 use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use App\Repository\VocabularyWordRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -37,13 +39,69 @@ class UserController extends AbstractController
             $manager->persist($profileUser);
             $manager->flush();
 
-            return $this->redirectToRoute('user');
+            return $this->redirectToRoute('user-profile');
         }
 
         return $this->render('user/editprofile.html.twig', [
             'editProfileForm' => $form->createView()
         ]);
     }
+
+       /**
+     * @Route("/historique", name="user-historical")
+     */
+    public function index(SessionInterface $sessionInterface, VocabularyWordRepository $vocabularyWordRepository)
+    {
+        
+        $historique = $sessionInterface->get('historique', []);
+
+        $monHistorique = [];
+
+        foreach($historique as $id => $quantite) {
+            $monHistorique[] = [
+                'word' => $vocabularyWordRepository->find($id),
+            ];
+        }
+
+        return $this->render('user/userhistorical.html.twig', [
+            'mesMots' => $monHistorique,
+        ]);
+    }
+
+    /**
+     * @Route("/historique/ajout/{id}", name="word-add")
+     */
+    public function ajoutProduit($id, SessionInterface $sessionInterface) {
+
+        $monHistorique = $sessionInterface->get('historique', []);
+
+        if(!empty($monHistorique[$id])) {
+            $monHistorique[$id]++;
+        } else {
+            $monHistorique[$id] = 1;
+        }
+
+        $sessionInterface->set('historique', $monHistorique);
+        
+        return $this->redirectToRoute("user-historical");
+    }
+
+    // /**
+    //  * @Route("/panier/suppression/{id}", name="panier_supression")
+    //  */
+    // public function supressionProduit($id, SessionInterface $sessionInterface) {
+
+    //     $monPanier = $sessionInterface->get('panier', []);
+
+    //     if(!empty($monPanier[$id])) {
+    //         unset($monPanier[$id]);
+    //     }
+
+    //     $sessionInterface->set('panier', $monPanier);
+        
+    //     return $this->redirectToRoute("panier");
+    //  }
+
 
     /**
      * @Route("/admin/users", name="admin_users")

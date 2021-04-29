@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon historique{% endblock %}
+
+{% block body %}
+
+    {% if mesMots | length > 0 %}
+    <div class="general-container">
+        <div class="title">
+            <h2>Liste des utilisateurs</h2>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Numéro</th>
+                    <th>Mots</th>
+                    <th>Définition</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for monHistorique in mesMots %}
+                    <tr>
+                        <td> {{ loop.index }} </td>
+                        <td> {{ monHistorique.word.word }} </td>
+                        <td>{{ monHistorique.word.definition }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div>
+            <p class="text-center">Votre historique est vide.</p>
+        </div>
+    {% endif %}
+{% endblock %}
