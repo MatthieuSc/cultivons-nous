@@ -28,7 +28,7 @@
                 <nav class="menu" role="navigation">
                     <div class="inner">
                         <div class="m-left">
-                            <a class="image-link" href="{{ path('home') }}"><img class="logo" src="image/logo.png" alt=""></a>
+                            <a class="image-link" href="{{ path('home') }}"><img class="logo" src="images/logo/logo.png" alt=""></a>
                         </div>
                         <div class="m-right">
                             <a class="accueil" href="{{ path('home') }}">Accueil</a>
@@ -37,6 +37,13 @@
                                 <div class="dropdown-content">
                                     <a href="{{ path('random_vocabulary_word') }}">Mot du jour</a>
                                     <a href=" {{ path('vocabulary_word_list') }}">Liste des mots</a>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <button class="dropdown-button">Capitale <i class="fa fa-caret-down"></i></button>
+                                <div class="dropdown-content">
+                                    <a href="{{ path('capital_random') }}">Capitale au hasard</a>
+                                    <a href="{{ path('capitals_list') }}">Liste des capitales</a>
                                 </div>
                             </div>
                             <div class="dropdown">
@@ -50,7 +57,7 @@
                                 <button class="dropdown-button">Actualités <i class="fa fa-caret-down"></i></button>
                                 <div class="dropdown-content">
                                     <a href="#">Actu' du jour</a>
-                                    <a href="#">Liste des mots</a>
+                                    <a href="#">Liste des actualités</a>
                                 </div>
                             </div>
                             {% if is_granted('ROLE_USER') %}
@@ -95,24 +102,34 @@
                         <div class="box right">
                             <h2>Contactez-nous</h2>
                             <div class="content">
-                                <form action="#">
+                                {{ form_start(contactForm) }}
+                                    <div class="identite">
+                                        <div class="text">Prénom
+                                            <span style="color: red;">*</span>
+                                        </div>
+                                        {{ form_widget(contactForm.prenom)}}
+                                    </div>
                                     <div class="email">
-                                    <div class="text">Email <span style="color: red;">*</span></div>
-                                    <input class="email-content" type="email" required> 
+                                        <div class="text">Email 
+                                            <span style="color: red;">*</span>
+                                        </div>
+                                        {{ form_widget(contactForm.email)}}
                                     </div>
                                     <div class="message">
-                                        <div class="text">Message <span style="color:red;">*</span></div>
-                                        <textarea class="message-content" cols="25" rows="5" required></textarea>
+                                        <div class="text">Message 
+                                            <span style="color:red;">*</span>
+                                        </div>
+                                        {{ form_widget(contactForm.message)}}
                                     </div>
                                     <div class="button">
-                                        <button class="button-contact" type="submit">Envoyer</button>
+                                        {{ form_widget(contactForm.envoyer)}}
                                     </div>
-                                </form>
+                                {{ form_end(contactForm) }}
                             </div>
                         </div>
                     </div>
                     <div class="last-line">
-                        <h4>2021 &copy Matthieu Scherer</h4>
+                        <h5>2021 &copy; Matthieu Scherer</h5>
                     </div>
                 </div>
             </footer>

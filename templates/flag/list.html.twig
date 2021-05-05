@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des mots de vocabulaire{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        
+        <div class="title">
+            <h1>Liste des pays et leur capitale</h1>
+        </div>
+        {% for cap in allCaps %}
+        <div class="container-capitals-list">
+            <div class="capitals-list-container">
+                <h2> {{ cap.country }} </h2>
+                <img src=" {{ asset('images/drapeaux/' ~ cap.flag) }}" alt=" {{ cap.country }}">
+            </div>
+            <div class="capital-container">
+                <h2 class="capital-content"><b>{{ cap.name| upper }}</h2>
+            </div>
+        </div>
+        {% endfor %}
+        {{ knp_pagination_render(allCaps) }}
+    </div>
+{% endblock %}

@@ -27,13 +27,30 @@ var elementOnClick = document.querySelectorAll('.word-list-container')
         allElements.addEventListener('click', definitionAppearance)
     }
 
-    var elementAppear = document.querySelector('.answer-button')
-    var parent = document.querySelector('.container-vocabulary-word')
-    elementAppear.addEventListener('click', function (e) {
-            definitionReveal = document.querySelector('.answer') 
-            definitionReveal.classList.add('appear') 
-            parent.removeChild(elementAppear)
-            e.preventDefault      
-        })
+    
+// Page vacabulary word list: affichage des definition au clic
+var elementOnClick = document.querySelectorAll('.capitals-list-container')
+for(i = 0; i < elementOnClick.length; i++) {
+
+    var allElements = elementOnClick[i] 
+    var definitionAppearance = function (e) {
+        
+        var definition = this.nextElementSibling
+        definition.classList.toggle('onclick')
+        e.stopPropagation()
+    }
+    allElements.addEventListener('click', definitionAppearance)
+}
+
+var elementAppear = document.querySelector('.answer-button')
+var parent = document.querySelector('.container-vocabulary-word')
+elementAppear.addEventListener('click', function (e) {
+        definitionReveal = document.querySelector('.answer') 
+        definitionReveal.classList.add('appear') 
+        parent.removeChild(elementAppear)
+        e.preventDefault      
+    })
+
+
 
 

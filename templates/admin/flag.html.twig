@@ -1,0 +1,38 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Capitales{% endblock %}
+
+{% block body %}
+    <div class="general-container">
+        <div class="title">
+            <h2>Liste des utilisateurs</h2>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Numéro</th>
+                    <th>Pays</th>
+                    <th>Drapeau</th>
+                    <th>Capitale</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cap in allCaps %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ cap.country }}</td>
+                        <td><img src="{{ asset('images/drapeaux/') ~ cap.flag }}" alt="photo {{ cap.country }}"></td>
+                        <td>{{ cap.name }}</td>
+                        <td>
+                            <a href=" {{ path('capital_update', {'id': cap.id}) }}"><i class="fas fa-pen" style="color:blue;"></i></a> |
+                            <a href=" {{ path('capital_delete', {'id': cap.id}) }}"><i class="fas fa-trash" style="color:red;"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+            {{ knp_pagination_render(allCaps) }}
+    </div>
+{% endblock %}

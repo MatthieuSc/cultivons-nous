@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des drapeaux{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        
+        <div class="title">
+            <h1>Liste des capitales</h1>
+            <h5>(Cliquez sur le drapeau pour afficher sa capitale)</h5>
+        </div>
+        {% for oneCap in cap %}
+        <div class="container-capitals-list">
+            <div class="capitals-list-container">
+                <h2> {{ oneCap.country }}</h2>
+                <img src="{{ asset('images/drapeaux/') ~ oneCap.flag }}" alt="photo {{ oneCap.country }}">
+            </div>
+            <div class="capital-container">
+                <h2 class="capital-content"><b>{{ oneCap.name| upper }}</h2></p>
+            </div>
+            <div class="button-other-one">
+                <button class="btn-other-one" type="button"><a href=" {{ path('capital_random') }}">Tu connais ? Découvres-en une autre !</a></button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

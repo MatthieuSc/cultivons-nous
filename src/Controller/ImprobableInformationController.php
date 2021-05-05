@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\ContactType;
 use App\Entity\ImprobableInformation;
 use App\Form\ImprobableInformationType;
 use Knp\Component\Pager\PaginatorInterface;
@@ -16,19 +17,67 @@ class ImprobableInformationController extends AbstractController
     /**
      * @Route("/information", name="random_improbable_information")
      */
-    public function randomInformation(ImprobableInformationRepository $improbableInformationRepository): Response
+    public function randomInformation(Request $request, \Swift_Mailer $mailer, ImprobableInformationRepository $improbableInformationRepository): Response
     {
+        $contactForm = $this->createForm(ContactType::class);
+        $contactForm->handleRequest($request);
+
+        if($contactForm->isSubmitted() && $contactForm->isValid()) {
+            $contact = $contactForm->getData();
+            
+            $message = (new \Swift_Message('Nouveau contact'))
+                ->setFrom($contact['email'])
+                ->setTo('contact.matthieu.scherer@gmail.com')
+                ->setBody(
+                    $this->renderView(
+                        'emails/contact.html.twig', compact('contact') 
+                    ),
+                    'text/html'
+                )
+            ;
+
+            $mailer->send($message);
+
+            $this->addFlash('message', "le message à bien été envoyé.");
+
+        }
+
         $information = $improbableInformationRepository->findOneRandomInfo();
         return $this->render('improbable_information/index.html.twig', [
             'information' => $information,
+            'contactForm' => $contactForm->createView()
         ]);
     }
 
      /**
      * @Route("/listes-infos", name="improbable_information_list")
      */
-    public function informationsList(PaginatorInterface $paginator, ImprobableInformationRepository $improbableInformationRepository, Request $request): Response
+    public function informationsList(\Swift_Mailer $mailer, PaginatorInterface $paginator, ImprobableInformationRepository $improbableInformationRepository, Request $request): Response
     {
+
+        $contactForm = $this->createForm(ContactType::class);
+        $contactForm->handleRequest($request);
+
+        if($contactForm->isSubmitted() && $contactForm->isValid()) {
+            $contact = $contactForm->getData();
+            
+            $message = (new \Swift_Message('Nouveau contact'))
+                ->setFrom($contact['email'])
+                ->setTo('contact.matthieu.scherer@gmail.com')
+                ->setBody(
+                    $this->renderView(
+                        'emails/contact.html.twig', compact('contact') 
+                    ),
+                    'text/html'
+                )
+            ;
+
+            $mailer->send($message);
+
+            $this->addFlash('message', "le message à bien été envoyé.");
+
+        }
+        
         $informations = $paginator->paginate(
             $improbableInformationRepository->findAll(),
             $request->query->getInt('page', 1),
@@ -36,6 +85,7 @@ class ImprobableInformationController extends AbstractController
         );
         return $this->render('improbable_information/list.html.twig', [
             'informations' => $informations,
+            'contactForm' => $contactForm->createView()
         ]);
     }
 
@@ -71,7 +121,7 @@ class ImprobableInformationController extends AbstractController
             return $this->redirectToRoute('admin_impro_list');
        }
         return $this->render('admin/improinfosForm.html.twig', [
-            'improInfoForm' => $form->createView()
+            'improInfoForm' => $form->createView(),
         ]);
     }
 

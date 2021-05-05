@@ -32,10 +32,12 @@
                     <a href="#">Accueil</a>
                     <a href=" {{ path('admin_users') }}">Utilisateurs</a>
                     <a href=" {{ path('admin_words_list') }}">Vocabulaire</a>
+                    <a href=" {{ path('admin_capitals_list') }}">Capitales</a>
                     <a href=" {{ path('admin_impro_list') }}">Infos impro'</a>
+                    <a href=" {{ path('home') }}">Retour vers le site</a>
                     <a href="{{ path('app_logout') }}">Déconnexion</a>
                 </div>
-                {% block body %}{% endblock %}
+                {% block body %}{% endblock %} 
             </div>
         </div>
 

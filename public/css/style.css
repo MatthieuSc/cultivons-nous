@@ -12,7 +12,7 @@ html, body {
     padding: 0;
     background: #EDEDED;
     overflow-x: hidden;
-    height: 100%;
+    min-height: 80%;
 }
 
 .main-container {
@@ -332,7 +332,7 @@ header {
         margin-top: 10px;
     }
 
-    .container-vocabulary-list {
+    .container-vocabulary-list, .container-capitals-list {
         border: 1px solid #fff;
         background-color: #fff;
         margin-bottom: 30px;
@@ -340,7 +340,7 @@ header {
         box-shadow: 4px 4px 4px 2px #E5AF70;
     }
 
-    .word-list-container {
+    .word-list-container, .capitals-list-container {
         text-align: center;
         width: 100%;
         margin: 20px auto;
@@ -351,17 +351,17 @@ header {
         text-transform: uppercase;
     }
 
-    .definition-container {
+    .definition-container, .capital-container {
         display: block;
         height: 0;
         opacity: 0;
     }
 
-    .definition-content {
+    .definition-content, .capital-content {
         text-align: center;
     }
 
-    .definition-container.onclick {
+    .definition-container.onclick, .capital-container.onclick {
         display: block;
         width: 10px 20px;
         height: auto;
@@ -652,18 +652,26 @@ header {
         margin: 0 auto 20px auto;
     }
 
-    .edit-button {
+    .edit-button, #edit_profile_valider {
         padding: 10px 15px;
         background-color: #A75A00;
         border: none;
         border-radius: 5px;
     }
 
-    .edit-info-link {
+    .edit-info-link, #edit_profile_valider {
         text-decoration: none;
         color: #000;
         font-weight: 700;
         font-size: 14px;
+    }
+
+    #edit_profile_valider {
+        margin-bottom: 20px;
+    }
+
+    #edit_profile_valider:hover {
+        cursor: pointer;
     }
 
     /* END CODE EDIT PROFILE USER */
@@ -701,7 +709,7 @@ footer {
     height: auto;
     background-color: #E5AF70;
     width: 100%;
-    height: 450px;
+    height: 500px;
     margin-top: 15px;
 }
 
@@ -731,7 +739,7 @@ footer {
     text-align: center;
 }
 
-.newsletter, .email-content {
+.newsletter, #contact_prenom, #contact_email {
     width: 70%;
     height: 30px;
     border: 1px solid #A75A00;
@@ -746,13 +754,14 @@ footer {
     margin: 10px;
 }
 
-.message-content {
+#contact_message {
     width: 70%;
     border: 1px solid #A75A00;
     border-radius: 5px;
+    height: 100px;
 }
 
-.email, .message {
+.identite, .email, .message {
     text-align: center;
 }
 
@@ -761,7 +770,7 @@ footer {
     text-align: center;
 }
 
-.button-contact {
+#contact_envoyer {
     width: 70%;
     border: 1px solid #A75A00;
     border-radius: 5px;
@@ -772,7 +781,7 @@ footer {
     cursor: pointer;
 }
 
-.button-contact:hover {
+#contact_envoyer:hover {
     border: 1px solid #A75A00;
     background-color: #A75A00;
     color: #fff;

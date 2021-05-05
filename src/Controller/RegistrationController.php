@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ContactType;
 use App\Security\Authenticator;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
@@ -18,8 +19,31 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/inscription", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, Authenticator $authenticator, UserRepository $userRepository): Response
+    public function register(Request $request, \Swift_Mailer $mailer, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, Authenticator $authenticator, UserRepository $userRepository): Response
     {
+        $contactForm = $this->createForm(ContactType::class);
+        $contactForm->handleRequest($request);
+
+        if($contactForm->isSubmitted() && $contactForm->isValid()) {
+            $contact = $contactForm->getData();
+            
+            $message = (new \Swift_Message('Nouveau contact'))
+                ->setFrom($contact['email'])
+                ->setTo('contact.matthieu.scherer@gmail.com')
+                ->setBody(
+                    $this->renderView(
+                        'emails/contact.html.twig', compact('contact') 
+                    ),
+                    'text/html'
+                )
+            ;
+
+            $mailer->send($message);
+
+            $this->addFlash('message', "le message à bien été envoyé.");
+
+        }
+
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -46,18 +70,23 @@ class RegistrationController extends AbstractController
                 $authenticator,
                 'main' // firewall name in security.yaml
             );
+
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+            'contactForm' => $contactForm->createView()
         ]);
     }
 
     /**
      * @Route("/activation/{token}", name="activation")
      */
-    public function activation ($token, UserRepository $userRepository)
+    public function activation ($token, UserRepository $userRepository, Request $request, \Swift_Mailer $mailer)
     {
+        
+        
         $user = $userRepository->findOneBy(['activation_token' => $token]);
 
         // Si on ne trouve pas d'ulisateur avec le token, alors on envoie un message d'erreur
@@ -76,6 +105,8 @@ class RegistrationController extends AbstractController
         $this->addFlash('message', 'Le compte a bien été activé');
 
         return $this->redirectToRoute('home');
+
+    
 
     }
 

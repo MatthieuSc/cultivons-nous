@@ -48,7 +48,7 @@ class ImprobableInformationRepository extends ServiceEntityRepository
     }
     */
 
-        /**
+    /**
      * Returns random improbable information
      */
     public function findOneRandomInfo()

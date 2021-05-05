@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\ContactType;
 use App\Form\EditProfileType;
 use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -20,16 +21,64 @@ class UserController extends AbstractController
      /**
      * @Route("/profil", name="user-profile")
      */
-    public function user()
+    public function user(Request $request, \Swift_Mailer $mailer)
     {
-            return $this->render('user/informations.html.twig');
+        $contactForm = $this->createForm(ContactType::class);
+        $contactForm->handleRequest($request);
+
+        if($contactForm->isSubmitted() && $contactForm->isValid()) {
+            $contact = $contactForm->getData();
+            
+            $message = (new \Swift_Message('Nouveau contact'))
+                ->setFrom($contact['email'])
+                ->setTo('contact.matthieu.scherer@gmail.com')
+                ->setBody(
+                    $this->renderView(
+                        'emails/contact.html.twig', compact('contact') 
+                    ),
+                    'text/html'
+                )
+            ;
+
+            $mailer->send($message);
+
+            $this->addFlash('message', "le message à bien été envoyé.");
+
+        }
+       
+            return $this->render('user/informations.html.twig', [
+                'contactForm' => $contactForm->createView()
+            ]);
     }
 
     /**
      * @Route("/profil/modifier", name="edit-profile")
      */
-    public function editProfile(Request $request)
+    public function editProfile(Request $request, \Swift_Mailer $mailer)
     {
+        $contactForm = $this->createForm(ContactType::class);
+        $contactForm->handleRequest($request);
+
+        if($contactForm->isSubmitted() && $contactForm->isValid()) {
+            $contact = $contactForm->getData();
+            
+            $message = (new \Swift_Message('Nouveau contact'))
+                ->setFrom($contact['email'])
+                ->setTo('contact.matthieu.scherer@gmail.com')
+                ->setBody(
+                    $this->renderView(
+                        'emails/contact.html.twig', compact('contact') 
+                    ),
+                    'text/html'
+                )
+            ;
+
+            $mailer->send($message);
+
+            $this->addFlash('message', "le message à bien été envoyé.");
+
+        }
+
         $profileUser = $this->getUser();
         $form = $this->createForm(EditProfileType::class, $profileUser);
         $form->handleRequest($request);
@@ -43,15 +92,38 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/editprofile.html.twig', [
-            'editProfileForm' => $form->createView()
+            'editProfileForm' => $form->createView(),
+            'contactForm' => $contactForm->createView()
         ]);
     }
 
        /**
      * @Route("/historique", name="user-historical")
      */
-    public function index(SessionInterface $sessionInterface, VocabularyWordRepository $vocabularyWordRepository)
+    public function index(Request $request, \Swift_Mailer $mailer, SessionInterface $sessionInterface, VocabularyWordRepository $vocabularyWordRepository)
     {
+        $contactForm = $this->createForm(ContactType::class);
+        $contactForm->handleRequest($request);
+
+        if($contactForm->isSubmitted() && $contactForm->isValid()) {
+            $contact = $contactForm->getData();
+            
+            $message = (new \Swift_Message('Nouveau contact'))
+                ->setFrom($contact['email'])
+                ->setTo('contact.matthieu.scherer@gmail.com')
+                ->setBody(
+                    $this->renderView(
+                        'emails/contact.html.twig', compact('contact') 
+                    ),
+                    'text/html'
+                )
+            ;
+
+            $mailer->send($message);
+
+            $this->addFlash('message', "le message à bien été envoyé.");
+
+        }
         
         $historique = $sessionInterface->get('historique', []);
 
@@ -65,6 +137,7 @@ class UserController extends AbstractController
 
         return $this->render('user/userhistorical.html.twig', [
             'mesMots' => $monHistorique,
+            'contactForm' => $contactForm->createView()
         ]);
     }
 
@@ -85,22 +158,6 @@ class UserController extends AbstractController
         
         return $this->redirectToRoute("user-historical");
     }
-
-    // /**
-    //  * @Route("/panier/suppression/{id}", name="panier_supression")
-    //  */
-    // public function supressionProduit($id, SessionInterface $sessionInterface) {
-
-    //     $monPanier = $sessionInterface->get('panier', []);
-
-    //     if(!empty($monPanier[$id])) {
-    //         unset($monPanier[$id]);
-    //     }
-
-    //     $sessionInterface->set('panier', $monPanier);
-        
-    //     return $this->redirectToRoute("panier");
-    //  }
 
 
     /**

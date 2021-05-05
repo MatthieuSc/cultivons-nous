@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\ContactType;
 use App\Entity\VocabularyWord;
 use App\Form\VocabularyWordType;
 use App\Form\ImprobableInformationType;
@@ -18,20 +19,67 @@ class VocabularyWordController extends AbstractController
     /**
      * @Route("/word", name="random_vocabulary_word")
      */
-    public function randomWord(VocabularyWordRepository $vocabularyWordRepository): Response
+    public function randomWord(Request $request, \Swift_Mailer $mailer, VocabularyWordRepository $vocabularyWordRepository): Response
     {
+
+        $contactForm = $this->createForm(ContactType::class);
+        $contactForm->handleRequest($request);
+
+        if($contactForm->isSubmitted() && $contactForm->isValid()) {
+            $contact = $contactForm->getData();
+            
+            $message = (new \Swift_Message('Nouveau contact'))
+                ->setFrom($contact['email'])
+                ->setTo('contact.matthieu.scherer@gmail.com')
+                ->setBody(
+                    $this->renderView(
+                        'emails/contact.html.twig', compact('contact') 
+                    ),
+                    'text/html'
+                )
+            ;
+
+            $mailer->send($message);
+
+            $this->addFlash('message', "le message à bien été envoyé.");
+
+        }
 
         $word = $vocabularyWordRepository->findOneRandomWord();
         return $this->render('vocabulary_word/index.html.twig', [
             'word' => $word,
+            'contactForm' => $contactForm->createView()
         ]);
     }
 
     /**
      * @Route("/words-list", name="vocabulary_word_list")
      */
-    public function wordsList(PaginatorInterface $paginator,VocabularyWordRepository $vocabularyWordRepository, Request $request): Response
+    public function wordsList(\Swift_Mailer $mailer, PaginatorInterface $paginator,VocabularyWordRepository $vocabularyWordRepository, Request $request): Response
     {
+
+        $contactForm = $this->createForm(ContactType::class);
+        $contactForm->handleRequest($request);
+
+        if($contactForm->isSubmitted() && $contactForm->isValid()) {
+            $contact = $contactForm->getData();
+            
+            $message = (new \Swift_Message('Nouveau contact'))
+                ->setFrom($contact['email'])
+                ->setTo('contact.matthieu.scherer@gmail.com')
+                ->setBody(
+                    $this->renderView(
+                        'emails/contact.html.twig', compact('contact') 
+                    ),
+                    'text/html'
+                )
+            ;
+
+            $mailer->send($message);
+
+            $this->addFlash('message', "le message à bien été envoyé.");
+
+        }
 
         $words = $paginator->paginate(
             $vocabularyWordRepository->findAllByAlphaOrder(),
@@ -41,6 +89,7 @@ class VocabularyWordController extends AbstractController
 
         return $this->render('vocabulary_word/list.html.twig', [
             'words' => $words,
+            'contactForm' => $contactForm->createView()
         ]);
     }
 
