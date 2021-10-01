@@ -23,24 +23,23 @@ class FlagController extends AbstractController
         $contactForm = $this->createForm(ContactType::class);
         $contactForm->handleRequest($request);
 
-        if($contactForm->isSubmitted() && $contactForm->isValid()) {
+        if ($contactForm->isSubmitted() && $contactForm->isValid()) {
             $contact = $contactForm->getData();
-            
+
             $message = (new \Swift_Message('Nouveau contact'))
                 ->setFrom($contact['email'])
                 ->setTo('contact.matthieu.scherer@gmail.com')
                 ->setBody(
                     $this->renderView(
-                        'emails/contact.html.twig', compact('contact') 
+                        'emails/contact.html.twig',
+                        compact('contact')
                     ),
                     'text/html'
-                )
-            ;
+                );
 
             $mailer->send($message);
 
             $this->addFlash('message', "le message à bien été envoyé.");
-
         }
 
         $cap = $flagRepository->findOneRandomFlag();
@@ -59,24 +58,23 @@ class FlagController extends AbstractController
         $contactForm = $this->createForm(ContactType::class);
         $contactForm->handleRequest($request);
 
-        if($contactForm->isSubmitted() && $contactForm->isValid()) {
+        if ($contactForm->isSubmitted() && $contactForm->isValid()) {
             $contact = $contactForm->getData();
-            
+
             $message = (new \Swift_Message('Nouveau contact'))
                 ->setFrom($contact['email'])
                 ->setTo('contact.matthieu.scherer@gmail.com')
                 ->setBody(
                     $this->renderView(
-                        'emails/contact.html.twig', compact('contact') 
+                        'emails/contact.html.twig',
+                        compact('contact')
                     ),
                     'text/html'
-                )
-            ;
+                );
 
             $mailer->send($message);
 
             $this->addFlash('message', "le message à bien été envoyé.");
-
         }
 
         $allCaps = $paginator->paginate(
@@ -101,8 +99,8 @@ class FlagController extends AbstractController
             $flagRepository->findAll(),
             $request->query->getInt("page", 1),
             20,
-    );
-    
+        );
+
         return $this->render('admin/flag.html.twig', [
             'allCaps' => $allCaps,
         ]);
@@ -126,7 +124,7 @@ class FlagController extends AbstractController
             $manager->persist($flag);
             $manager->flush();
             return $this->redirectToRoute('admin_capitals_list');
-       }
+        }
         return $this->render('admin/flagForm.html.twig', [
             'flagForm' => $form->createView(),
         ]);
@@ -167,7 +165,7 @@ class FlagController extends AbstractController
     public function deleteFlag(FlagRepository $flagRepository, $id)
     {
         $flag = $flagRepository->find($id);
-        $oldNomFlag = $maison->getFlag();
+        $oldNomFlag = $flag->getFlag();
         $oldCheminFlag = $this->getParameter('dossier_images_drapeaux') . '/' . $oldNomFlag;
         if (file_exists($oldCheminFlag)) {
             unlink($oldCheminFlag);

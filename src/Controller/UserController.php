@@ -98,7 +98,7 @@ class UserController extends AbstractController
     }
 
        /**
-     * @Route("/historique", name="user-historical")
+     * @Route("/{user_id}/historique", name="user-historical")
      */
     public function index(Request $request, \Swift_Mailer $mailer, SessionInterface $sessionInterface, VocabularyWordRepository $vocabularyWordRepository)
     {
@@ -124,39 +124,15 @@ class UserController extends AbstractController
             $this->addFlash('message', "le message à bien été envoyé.");
 
         }
-        
-        $historique = $sessionInterface->get('historique', []);
 
-        $monHistorique = [];
 
-        foreach($historique as $id => $quantite) {
-            $monHistorique[] = [
-                'word' => $vocabularyWordRepository->find($id),
-            ];
-        }
+        // $myWords = $vocabularyWordRepository->find($user_id);             
+       
 
         return $this->render('user/userhistorical.html.twig', [
-            'mesMots' => $monHistorique,
-            'contactForm' => $contactForm->createView()
+            'myWords'  => $myWords,
+            'contactForm'   => $contactForm->createView()
         ]);
-    }
-
-    /**
-     * @Route("/historique/ajout/{id}", name="word-add")
-     */
-    public function ajoutProduit($id, SessionInterface $sessionInterface) {
-
-        $monHistorique = $sessionInterface->get('historique', []);
-
-        if(!empty($monHistorique[$id])) {
-            $monHistorique[$id]++;
-        } else {
-            $monHistorique[$id] = 1;
-        }
-
-        $sessionInterface->set('historique', $monHistorique);
-        
-        return $this->redirectToRoute("user-historical");
     }
 
 

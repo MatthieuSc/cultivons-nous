@@ -4,10 +4,10 @@
 
 {% block body %}
 
-    {% if mesMots | length > 0 %}
+    {% if myWords | length > 0 %}
     <div class="general-container">
         <div class="title">
-            <h2>Liste des utilisateurs</h2>
+            <h2>Historique</h2>
         </div>
         <table>
             <thead>
@@ -18,11 +18,11 @@
                 </tr>
             </thead>
             <tbody>
-                {% for monHistorique in mesMots %}
+                {% for myWord in myWords %}
                     <tr>
                         <td> {{ loop.index }} </td>
-                        <td> {{ monHistorique.word.word }} </td>
-                        <td>{{ monHistorique.word.definition }}</td>
+                        <td> {{ myWord.word.word }} </td>
+                        <td>{{ myWord.word.definition }}</td>
                     </tr>
                 {% endfor %}
             </tbody>

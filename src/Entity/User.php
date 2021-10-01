@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -46,6 +48,16 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $activation_token;
+
+    /**
+     * @ORM\OneToMany(targetEntity=VocabularyWord::class, mappedBy="user")
+     */
+    private $wordHistorical;
+
+    public function __construct()
+    {
+        $this->wordHistorical = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -148,6 +160,36 @@ class User implements UserInterface
     public function setActivationToken(?string $activation_token): self
     {
         $this->activation_token = $activation_token;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|VocabularyWord[]
+     */
+    public function getWordHistorical(): Collection
+    {
+        return $this->wordHistorical;
+    }
+
+    public function addWordHistorical(VocabularyWord $wordHistorical): self
+    {
+        if (!$this->wordHistorical->contains($wordHistorical)) {
+            $this->wordHistorical[] = $wordHistorical;
+            $wordHistorical->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWordHistorical(VocabularyWord $wordHistorical): self
+    {
+        if ($this->wordHistorical->removeElement($wordHistorical)) {
+            // set the owning side to null (unless already changed)
+            if ($wordHistorical->getUser() === $this) {
+                $wordHistorical->setUser(null);
+            }
+        }
 
         return $this;
     }

@@ -34,7 +34,7 @@ header {
     background-color: #E5AF70;
     width: 100%;
     height: 70px;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 /* Alignement à gauche */
@@ -86,7 +86,7 @@ header {
     border: none;
     color: #000;
     background-color: inherit;
-    margin: 25px 15px;
+    margin: 20px 15px;
     cursor: pointer;
 }
 
@@ -170,6 +170,8 @@ header {
 
 .m-right.open {
     transform: translateX(0);
+    display: flex;
+    transition: transform .3s ease-in-out;
 }
 
 .m-nav-toggle.open span.m-toggle-icon {
@@ -199,7 +201,7 @@ header {
     /* HOME PAGE */
 
     .container{
-        margin: 20px 50px;
+        margin: 25px auto;
     }
 
     .presentation {
@@ -803,24 +805,29 @@ footer {
         display: flex;
     }
 
+    a.accueil {
+        padding-top: 40px!important;
+    }
+
     .m-right {
         float: none;
         position: absolute;
         right: 0;
-        display: flex;
+        display: none;
         flex-direction: column;
         top: 70px;
-        background-color: #E5AF70;
+        background-color: #A75A00;
         text-align: center;
         width: 200px;
-        height: 50%;
         transform: translateX(100%);
         transition: all 0.3s;
         z-index: 1;
+        height: 80%;
     }
 
     .dropdown-content {
         margin-top: -5px;
+        position: unset;
     }
 
     .dropdown a {
@@ -860,6 +867,15 @@ footer {
         top: -65px;
         right: 0
     } 
+
+    footer {
+        height: 100%;
+    }
+
+    .first-content-footer {
+        display: flex;
+        flex-direction: column;
+    }
 
 }
 
@@ -907,6 +923,15 @@ footer {
 
     .information p {
         font-size: 14px;
+    }
+
+    .container {
+        width: 100%;
+        margin: auto;
+    }
+
+    .btn-other-one {
+        font-size: 13px;
     }
 
 }

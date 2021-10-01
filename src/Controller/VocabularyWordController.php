@@ -122,7 +122,7 @@ class VocabularyWordController extends AbstractController
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($vocabWord);
             $manager->flush();
-            return $this->redirectToRoute('admin_word_list');
+            return $this->redirectToRoute('admin_words_list');
        }
         return $this->render('admin/vocabwordsForm.html.twig', [
             'vocabWordForm' => $form->createView()
